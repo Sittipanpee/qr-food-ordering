@@ -34,7 +34,7 @@ const statusIcons: Record<OrderStatus, string> = {
   cancelled: '❌',
 };
 
-const statusColors: Record<OrderStatus, string> = {
+const statusClassNames: Record<OrderStatus, string> = {
   pending: 'bg-warning/10 text-warning border-warning',
   confirmed: 'bg-info/10 text-info border-info',
   preparing: 'bg-orange-500/10 text-orange-500 border-orange-500',
@@ -282,7 +282,7 @@ export default function OrdersPage() {
                     <div>
                       <CardTitle className="flex items-center gap-2 flex-wrap">
                         <span className="text-xl">{order.order_number}</span>
-                        <Badge className={`${statusColors[order.status]} border text-base px-3 py-1`}>
+                        <Badge className={`${statusClassNames[order.status]} border text-base px-3 py-1`}>
                           <span className="mr-1">{statusIcons[order.status]}</span>
                           {statusLabels[order.status]}
                         </Badge>
@@ -388,7 +388,7 @@ export default function OrdersPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm font-medium">Status</p>
-                  <Badge variant={statusColors[selectedOrder.status]} className="mt-1">
+                  <Badge className={`mt-1 ${statusClassNames[selectedOrder.status]}`}>
                     {statusLabels[selectedOrder.status]}
                   </Badge>
                 </div>
