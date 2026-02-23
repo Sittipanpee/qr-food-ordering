@@ -62,7 +62,7 @@ function MenuContent() {
     }
   };
 
-  const checkExistingQueue = () => {
+  const checkExistingQueue = async () => {
     if (mode === 'market') {
       const queueData = localStorage.getItem('current_queue');
       if (queueData) {
@@ -73,16 +73,39 @@ function MenuContent() {
           const twoHours = 2 * 60 * 60 * 1000;
 
           // If queue is less than 2 hours old and not completed
-          if (now - queueTime < twoHours && queue.status !== 'completed') {
-            const shouldContinue = window.confirm(
-              `พบคิว Q${String(queue.queue_number).padStart(3, '0')} ที่ยังไม่เสร็จ\nต้องการติดตามคิวนี้หรือไม่?`
-            );
-            if (shouldContinue) {
-              window.location.href = `/queue/${queue.id}`;
+          if (now - queueTime < twoHours && queue.status !== 'completed' && queue.status !== 'cancelled') {
+            // Verify queue still exists in API
+            try {
+              const orderData = await api.orders.getById(queue.id);
+
+              if (orderData) {
+                // Queue still exists, ask user
+                const shouldContinue = window.confirm(
+                  `พบคิว Q${String(queue.queue_number).padStart(3, '0')} ที่ยังไม่เสร็จ\nต้องการติดตามคิวนี้หรือไม่?`
+                );
+                if (shouldContinue) {
+                  window.location.href = `/queue/${queue.id}`;
+                } else {
+                  // User declined, clear localStorage
+                  localStorage.removeItem('current_queue');
+                }
+              } else {
+                // Queue doesn't exist anymore, clear localStorage
+                console.log('Queue not found in API, clearing localStorage');
+                localStorage.removeItem('current_queue');
+              }
+            } catch (error) {
+              // Error checking queue, clear localStorage
+              console.error('Error verifying queue:', error);
+              localStorage.removeItem('current_queue');
             }
+          } else {
+            // Queue is old or completed, clear it
+            localStorage.removeItem('current_queue');
           }
         } catch (error) {
           console.error('Error checking queue:', error);
+          localStorage.removeItem('current_queue');
         }
       }
     }

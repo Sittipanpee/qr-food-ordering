@@ -53,12 +53,17 @@ export default function QueueTicketPage({ params }: PageProps) {
             status: orderData.status,
           }));
         }
+      } else {
+        // Clear localStorage if order not found
+        localStorage.removeItem('current_queue');
       }
 
       setActiveQueues(queues);
       setEstimatedWaitPerQueue(settings.estimated_wait_per_queue);
     } catch (error) {
       console.error('Error loading order:', error);
+      // Clear localStorage on error
+      localStorage.removeItem('current_queue');
     } finally {
       setIsLoading(false);
     }
@@ -182,14 +187,55 @@ export default function QueueTicketPage({ params }: PageProps) {
   }
 
   if (!order || !order.queue_number) {
+    // Clear localStorage and redirect
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('current_queue');
+    }
+
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background p-4">
-        <Card className="p-8 text-center max-w-md">
-          <p className="text-lg font-semibold mb-2">ไม่พบข้อมูลคิว</p>
-          <p className="text-muted-foreground mb-4">คิวนี้อาจถูกยกเลิกหรือไม่มีอยู่ในระบบ</p>
-          <Button onClick={() => window.location.href = '/menu?mode=market'}>
-            กลับไปหน้าเมนู
-          </Button>
+      <div className="min-h-screen flex items-center justify-center bg-background p-3 sm:p-4">
+        <Card className="p-6 sm:p-8 text-center max-w-md w-full mx-4">
+          <div className="mb-4">
+            <div className="text-5xl mb-3">😕</div>
+            <h2 className="text-lg sm:text-xl font-bold mb-2">ไม่พบข้อมูลคิว</h2>
+          </div>
+
+          <div className="space-y-3 mb-6">
+            <p className="text-sm sm:text-base text-muted-foreground">
+              คิวนี้อาจถูกยกเลิก ดำเนินการเสร็จสิ้น หรือหมดอายุแล้ว
+            </p>
+            <div className="p-3 bg-muted/50 rounded-lg text-left">
+              <p className="text-xs sm:text-sm text-muted-foreground">
+                <strong>💡 ทำไมถึงเกิดปัญหา?</strong>
+              </p>
+              <ul className="text-xs sm:text-sm text-muted-foreground mt-2 space-y-1 list-disc list-inside">
+                <li>คิวอาจถูกยกเลิกโดยร้าน</li>
+                <li>ระบบถูก restart ข้อมูลหายไป</li>
+                <li>คิวหมดอายุ (เกิน 2 ชั่วโมง)</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Button
+              onClick={() => {
+                localStorage.removeItem('current_queue');
+                window.location.href = '/menu?mode=market';
+              }}
+              size="lg"
+              className="w-full"
+            >
+              สั่งอาหารใหม่
+            </Button>
+            <Button
+              onClick={() => window.history.back()}
+              variant="outline"
+              size="lg"
+              className="w-full"
+            >
+              ย้อนกลับ
+            </Button>
+          </div>
         </Card>
       </div>
     );
