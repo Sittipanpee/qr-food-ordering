@@ -61,74 +61,75 @@ export default function AdminPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-3xl font-bold">{settings?.restaurant_name || 'Admin Dashboard'}</h1>
-          <p className="text-muted-foreground mt-1">
-            Overview and management interface
+      <div className="flex items-center justify-between mb-4 sm:mb-6 flex-wrap gap-3">
+        <div className="min-w-0">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold truncate">{settings?.restaurant_name || 'Admin'}</h1>
+          <p className="text-xs sm:text-sm text-muted-foreground mt-1">
+            <span className="hidden sm:inline">Overview and management interface</span>
+            <span className="sm:hidden">Dashboard</span>
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          <Badge variant={settings?.operation_mode === 'restaurant' ? 'default' : 'secondary'}>
-            {settings?.operation_mode === 'restaurant' ? 'Restaurant Mode' : 'Market Mode'}
+        <div className="flex items-center gap-2 shrink-0">
+          <Badge variant={settings?.operation_mode === 'restaurant' ? 'default' : 'secondary'} className="text-xs sm:text-sm">
+            {settings?.operation_mode === 'restaurant' ? 'Restaurant' : 'Market'}
           </Badge>
         </div>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-6 sm:mb-8">
         <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+          <CardHeader className="pb-2 sm:pb-3 pt-3 sm:pt-4">
+            <CardTitle className="text-xs sm:text-sm font-medium text-muted-foreground truncate">
               Total Orders
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold">{stats.totalOrders}</div>
-            <p className="text-xs text-muted-foreground mt-1">
+          <CardContent className="pb-3 sm:pb-4">
+            <div className="text-2xl sm:text-3xl font-bold">{stats.totalOrders}</div>
+            <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">
               {stats.pendingOrders} pending
             </p>
           </CardContent>
         </Card>
 
         <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+          <CardHeader className="pb-2 sm:pb-3 pt-3 sm:pt-4">
+            <CardTitle className="text-xs sm:text-sm font-medium text-muted-foreground truncate">
               Menu Items
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold">{stats.menuItems}</div>
-            <p className="text-xs text-muted-foreground mt-1">
-              Available items
+          <CardContent className="pb-3 sm:pb-4">
+            <div className="text-2xl sm:text-3xl font-bold">{stats.menuItems}</div>
+            <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">
+              Available
             </p>
           </CardContent>
         </Card>
 
         {settings?.operation_mode === 'restaurant' ? (
           <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardHeader className="pb-2 sm:pb-3 pt-3 sm:pt-4">
+              <CardTitle className="text-xs sm:text-sm font-medium text-muted-foreground truncate">
                 Active Tables
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold">{stats.activeTables}</div>
-              <p className="text-xs text-muted-foreground mt-1">
-                Ready for orders
+            <CardContent className="pb-3 sm:pb-4">
+              <div className="text-2xl sm:text-3xl font-bold">{stats.activeTables}</div>
+              <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">
+                Ready
               </p>
             </CardContent>
           </Card>
         ) : (
           <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
+            <CardHeader className="pb-2 sm:pb-3 pt-3 sm:pt-4">
+              <CardTitle className="text-xs sm:text-sm font-medium text-muted-foreground truncate">
                 Active Queues
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold">{stats.activeQueues}</div>
-              <p className="text-xs text-muted-foreground mt-1">
+            <CardContent className="pb-3 sm:pb-4">
+              <div className="text-2xl sm:text-3xl font-bold">{stats.activeQueues}</div>
+              <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">
                 In queue
               </p>
             </CardContent>
@@ -136,15 +137,15 @@ export default function AdminPage() {
         )}
 
         <Card>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground">
-              Pending Orders
+          <CardHeader className="pb-2 sm:pb-3 pt-3 sm:pt-4">
+            <CardTitle className="text-xs sm:text-sm font-medium text-muted-foreground truncate">
+              Pending
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold">{stats.pendingOrders}</div>
-            <p className="text-xs text-muted-foreground mt-1">
-              Need attention
+          <CardContent className="pb-3 sm:pb-4">
+            <div className="text-2xl sm:text-3xl font-bold">{stats.pendingOrders}</div>
+            <p className="text-[10px] sm:text-xs text-muted-foreground mt-1">
+              Need action
             </p>
           </CardContent>
         </Card>
@@ -152,48 +153,48 @@ export default function AdminPage() {
 
       {/* Quick Actions */}
       <Card>
-        <CardHeader>
-          <CardTitle>Quick Actions</CardTitle>
-          <CardDescription>Common management tasks</CardDescription>
+        <CardHeader className="pb-3 sm:pb-4">
+          <CardTitle className="text-base sm:text-lg">Quick Actions</CardTitle>
+          <CardDescription className="text-xs sm:text-sm">Common tasks</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
             <a
               href="/admin/orders"
-              className="p-4 border rounded-lg hover:bg-accent transition-colors"
+              className="p-3 sm:p-4 border rounded-lg hover:bg-accent transition-colors"
             >
-              <h3 className="font-semibold mb-1">Manage Orders</h3>
-              <p className="text-sm text-muted-foreground">
-                View and update order status
+              <h3 className="text-sm sm:text-base font-semibold mb-1">Orders</h3>
+              <p className="text-xs sm:text-sm text-muted-foreground">
+                View & update status
               </p>
             </a>
             <a
               href="/admin/menu"
-              className="p-4 border rounded-lg hover:bg-accent transition-colors"
+              className="p-3 sm:p-4 border rounded-lg hover:bg-accent transition-colors"
             >
-              <h3 className="font-semibold mb-1">Edit Menu</h3>
-              <p className="text-sm text-muted-foreground">
-                Add or update menu items
+              <h3 className="text-sm sm:text-base font-semibold mb-1">Menu</h3>
+              <p className="text-xs sm:text-sm text-muted-foreground">
+                Edit menu items
               </p>
             </a>
             {settings?.operation_mode === 'restaurant' ? (
               <a
                 href="/admin/tables"
-                className="p-4 border rounded-lg hover:bg-accent transition-colors"
+                className="p-3 sm:p-4 border rounded-lg hover:bg-accent transition-colors"
               >
-                <h3 className="font-semibold mb-1">Manage Tables</h3>
-                <p className="text-sm text-muted-foreground">
-                  Setup tables and QR codes
+                <h3 className="text-sm sm:text-base font-semibold mb-1">Tables</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground">
+                  Setup & QR codes
                 </p>
               </a>
             ) : (
               <a
                 href="/admin/queue"
-                className="p-4 border rounded-lg hover:bg-accent transition-colors"
+                className="p-3 sm:p-4 border rounded-lg hover:bg-accent transition-colors"
               >
-                <h3 className="font-semibold mb-1">Queue Management</h3>
-                <p className="text-sm text-muted-foreground">
-                  Manage order queues
+                <h3 className="text-sm sm:text-base font-semibold mb-1">Queue</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground">
+                  Manage queues
                 </p>
               </a>
             )}

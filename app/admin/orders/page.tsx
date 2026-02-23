@@ -199,18 +199,18 @@ export default function OrdersPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
+      <div className="flex items-center justify-between mb-4 sm:mb-6 flex-wrap gap-3 sm:gap-4">
         <div>
-          <h1 className="text-3xl font-bold flex items-center gap-2">
-            📋 จัดการออเดอร์
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold flex items-center gap-2">
+            📋 <span className="hidden sm:inline">จัดการ</span>ออเดอร์
             {newOrdersCount > 0 && (
-              <Badge className="bg-success text-success-foreground animate-pulse">
-                +{newOrdersCount} ใหม่!
+              <Badge className="bg-success text-success-foreground animate-pulse text-xs sm:text-sm">
+                +{newOrdersCount}
               </Badge>
             )}
           </h1>
-          <p className="text-muted-foreground mt-1">
-            {isRestaurantMode ? 'ออเดอร์ร้านอาหาร' : 'ออเดอร์ตลาดนัด'}
+          <p className="text-xs sm:text-sm text-muted-foreground mt-1">
+            {isRestaurantMode ? 'ร้านอาหาร' : 'ตลาดนัด'}
           </p>
         </div>
 
@@ -258,62 +258,62 @@ export default function OrdersPage() {
         </Card>
 
         <Card className={`transition-all ${statusCardColors.confirmed} ${statusCounts.confirmed > 0 ? statusAnimations.confirmed : ''}`}>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-info flex items-center gap-2">
-              <span className="text-xl">{statusIcons.confirmed}</span>
-              ยืนยันแล้ว
+          <CardHeader className="pb-1 sm:pb-2 pt-3 sm:pt-4">
+            <CardTitle className="text-xs sm:text-sm font-medium text-info flex items-center gap-1 sm:gap-2">
+              <span className="text-base sm:text-xl">{statusIcons.confirmed}</span>
+              <span className="truncate">ยืนยันแล้ว</span>
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-info">{statusCounts.confirmed}</div>
+          <CardContent className="pb-3 sm:pb-4">
+            <div className="text-2xl sm:text-3xl font-bold text-info">{statusCounts.confirmed}</div>
           </CardContent>
         </Card>
 
         <Card className={`transition-all ${statusCardColors.preparing} ${statusCounts.preparing > 0 ? statusAnimations.preparing : ''}`}>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-orange-500 flex items-center gap-2">
-              <span className="text-xl">{statusIcons.preparing}</span>
-              กำลังทำ
+          <CardHeader className="pb-1 sm:pb-2 pt-3 sm:pt-4">
+            <CardTitle className="text-xs sm:text-sm font-medium text-orange-500 flex items-center gap-1 sm:gap-2">
+              <span className="text-base sm:text-xl">{statusIcons.preparing}</span>
+              <span className="truncate">กำลังทำ</span>
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-orange-500">{statusCounts.preparing}</div>
+          <CardContent className="pb-3 sm:pb-4">
+            <div className="text-2xl sm:text-3xl font-bold text-orange-500">{statusCounts.preparing}</div>
           </CardContent>
         </Card>
 
         <Card className={`transition-all ${statusCardColors.ready} ${statusCounts.ready > 0 ? statusAnimations.ready : ''}`}>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-success flex items-center gap-2">
-              <span className="text-xl">{statusIcons.ready}</span>
-              พร้อมเสิร์ฟ
+          <CardHeader className="pb-1 sm:pb-2 pt-3 sm:pt-4">
+            <CardTitle className="text-xs sm:text-sm font-medium text-success flex items-center gap-1 sm:gap-2">
+              <span className="text-base sm:text-xl">{statusIcons.ready}</span>
+              <span className="truncate">พร้อมเสิร์ฟ</span>
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-success">{statusCounts.ready}</div>
+          <CardContent className="pb-3 sm:pb-4">
+            <div className="text-2xl sm:text-3xl font-bold text-success">{statusCounts.ready}</div>
           </CardContent>
         </Card>
 
         <Card className={`transition-all ${statusCardColors.completed}`}>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
-              <span className="text-xl">{statusIcons.completed}</span>
-              เสร็จสิ้น
+          <CardHeader className="pb-1 sm:pb-2 pt-3 sm:pt-4">
+            <CardTitle className="text-xs sm:text-sm font-medium text-muted-foreground flex items-center gap-1 sm:gap-2">
+              <span className="text-base sm:text-xl">{statusIcons.completed}</span>
+              <span className="truncate">เสร็จสิ้น</span>
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold">{statusCounts.completed}</div>
+          <CardContent className="pb-3 sm:pb-4">
+            <div className="text-2xl sm:text-3xl font-bold">{statusCounts.completed}</div>
           </CardContent>
         </Card>
 
         <Card className={`transition-all ${statusCardColors.cancelled}`}>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-error flex items-center gap-2">
-              <span className="text-xl">{statusIcons.cancelled}</span>
-              ยกเลิก
+          <CardHeader className="pb-1 sm:pb-2 pt-3 sm:pt-4">
+            <CardTitle className="text-xs sm:text-sm font-medium text-error flex items-center gap-1 sm:gap-2">
+              <span className="text-base sm:text-xl">{statusIcons.cancelled}</span>
+              <span className="truncate">ยกเลิก</span>
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-error">{statusCounts.cancelled}</div>
+          <CardContent className="pb-3 sm:pb-4">
+            <div className="text-2xl sm:text-3xl font-bold text-error">{statusCounts.cancelled}</div>
           </CardContent>
         </Card>
       </div>
@@ -347,31 +347,31 @@ export default function OrdersPage() {
             return (
               <Card key={order.id} className={`transition-all ${statusCardColors[order.status]} ${statusAnimations[order.status]}`}>
                 <CardHeader>
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <CardTitle className="flex items-center gap-2 flex-wrap">
-                        <span className="text-xl">{order.order_number}</span>
-                        <Badge className={`${statusClassNames[order.status]} border text-base px-3 py-1`}>
+                  <div className="flex flex-col sm:flex-row items-start justify-between gap-3 sm:gap-0">
+                    <div className="flex-1 min-w-0">
+                      <CardTitle className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                        <span className="text-base sm:text-lg md:text-xl">{order.order_number}</span>
+                        <Badge className={`${statusClassNames[order.status]} border text-xs sm:text-sm px-2 sm:px-3 py-0.5 sm:py-1`}>
                           <span className="mr-1">{statusIcons[order.status]}</span>
                           {statusLabels[order.status]}
                         </Badge>
                         {order.mode === 'market' && order.queue_number && (
-                          <Badge variant="outline" className="text-base px-3 py-1">คิว #{order.queue_number}</Badge>
+                          <Badge variant="outline" className="text-xs sm:text-sm px-2 sm:px-3 py-0.5 sm:py-1">คิว #{order.queue_number}</Badge>
                         )}
                       </CardTitle>
-                      <CardDescription className="mt-2 text-base">
+                      <CardDescription className="mt-1.5 sm:mt-2 text-xs sm:text-sm">
                         {isRestaurantMode && order.table_number && (
                           <span>โต๊ะ {order.table_number} • </span>
                         )}
                         {order.customer_name && <span>{order.customer_name} • </span>}
-                        {format(new Date(order.created_at), 'dd MMM yyyy HH:mm')}
+                        {format(new Date(order.created_at), 'dd MMM HH:mm')}
                       </CardDescription>
                     </div>
-                    <div className="text-right">
-                      <div className="text-3xl font-bold text-primary">
+                    <div className="text-left sm:text-right shrink-0">
+                      <div className="text-2xl sm:text-3xl font-bold text-primary">
                         ฿{order.total_amount.toFixed(0)}
                       </div>
-                      <p className="text-base text-muted-foreground mt-1">
+                      <p className="text-xs sm:text-sm text-muted-foreground mt-0.5 sm:mt-1">
                         {order.items.length} รายการ
                       </p>
                     </div>
@@ -379,43 +379,43 @@ export default function OrdersPage() {
                 </CardHeader>
                 <CardContent>
                   {/* Order Items Summary */}
-                  <div className="mb-4 space-y-1">
+                  <div className="mb-3 sm:mb-4 space-y-1">
                     {order.items.map((item) => (
                       <div
                         key={item.id}
-                        className="flex justify-between text-sm"
+                        className="flex justify-between text-xs sm:text-sm gap-2"
                       >
-                        <span>
+                        <span className="truncate">
                           {item.quantity}x {item.menu_item_name}
                         </span>
-                        <span>฿{(item.price * item.quantity).toFixed(2)}</span>
+                        <span className="shrink-0">฿{(item.price * item.quantity).toFixed(0)}</span>
                       </div>
                     ))}
                   </div>
 
                   {order.notes && (
-                    <div className="mb-4 p-4 bg-muted rounded-lg">
-                      <p className="text-base font-semibold mb-1">💬 หมายเหตุ:</p>
-                      <p className="text-base text-muted-foreground">{order.notes}</p>
+                    <div className="mb-3 sm:mb-4 p-3 sm:p-4 bg-muted rounded-lg">
+                      <p className="text-sm sm:text-base font-semibold mb-1">💬 หมายเหตุ:</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground">{order.notes}</p>
                     </div>
                   )}
 
                   {/* Action Buttons */}
-                  <div className="flex gap-3 flex-wrap">
+                  <div className="flex gap-2 sm:gap-3 flex-wrap">
                     <Button
-                      size="lg"
+                      size="sm"
                       variant="outline"
                       onClick={() => handleViewDetails(order)}
-                      className="h-12 text-base"
+                      className="h-10 sm:h-11 text-xs sm:text-sm flex-1 sm:flex-none"
                     >
-                      👁️ ดูรายละเอียด
+                      👁️ <span className="hidden sm:inline ml-1">รายละเอียด</span>
                     </Button>
 
                     {nextStatus && (
                       <Button
-                        size="lg"
+                        size="sm"
                         onClick={() => handleStatusChange(order.id, nextStatus)}
-                        className="h-12 text-base font-semibold"
+                        className="h-10 sm:h-11 text-xs sm:text-sm font-semibold flex-1 sm:flex-none"
                       >
                         {statusIcons[nextStatus]} {statusLabels[nextStatus]}
                       </Button>
@@ -423,12 +423,12 @@ export default function OrdersPage() {
 
                     {order.status === 'pending' && (
                       <Button
-                        size="lg"
+                        size="sm"
                         variant="outline"
                         onClick={() => handleStatusChange(order.id, 'cancelled')}
-                        className="text-destructive h-12 text-base"
+                        className="text-destructive h-10 sm:h-11 text-xs sm:text-sm"
                       >
-                        ❌ ยกเลิก
+                        ❌ <span className="hidden sm:inline ml-1">ยกเลิก</span>
                       </Button>
                     )}
                   </div>
@@ -441,10 +441,10 @@ export default function OrdersPage() {
 
       {/* Order Details Dialog */}
       <Dialog open={detailsOpen} onOpenChange={setDetailsOpen}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-full sm:max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>
-              Order Details - {selectedOrder?.order_number}
+            <DialogTitle className="text-base sm:text-lg">
+              <span className="hidden sm:inline">Order Details - </span>{selectedOrder?.order_number}
             </DialogTitle>
             <DialogDescription>
               {selectedOrder && format(new Date(selectedOrder.created_at), 'dd MMM yyyy HH:mm')}
