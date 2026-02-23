@@ -91,10 +91,25 @@ export default function QueueManagementPage() {
   const handleCreateWalkInQueue = async () => {
     setCreatingWalkIn(true);
     try {
-      await api.queue.createWalkInQueue({
+      // Get next queue number
+      const queueNumber = await api.queue.getNextQueueNumber();
+
+      // Create placeholder order for walk-in queue (will add items later)
+      const orderData = {
+        mode: 'market' as const,
         customer_name: walkInName.trim() || 'Walk-in Customer',
         customer_phone: walkInPhone.trim() || undefined,
-      });
+        queue_number: queueNumber,
+        status: 'pending' as const,
+        items: [], // Empty - admin will add items manually
+        total_amount: 0,
+        table_id: undefined,
+        table_number: undefined,
+        tracking_url: undefined,
+        notes: 'Walk-in order - items to be added',
+      };
+
+      await api.orders.create(orderData);
 
       // Reset form
       setWalkInName('');
@@ -104,10 +119,10 @@ export default function QueueManagementPage() {
       // Reload orders
       await loadOrders();
 
-      alert('เพิ่มคิวหน้าร้านสำเร็จ!');
+      alert('เพิ่มคิวหน้าร้านสำเร็จ! Q' + String(queueNumber).padStart(3, '0'));
     } catch (error) {
       console.error('Error creating walk-in queue:', error);
-      alert('ไม่สามารถเพิ่มคิวได้');
+      alert('ไม่สามารถเพิ่มคิวได้: ' + (error instanceof Error ? error.message : 'Unknown error'));
     } finally {
       setCreatingWalkIn(false);
     }
