@@ -131,21 +131,21 @@ function MenuContent() {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="sticky top-0 z-40 bg-card border-b border-border shadow-sm">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex-1">
-              <h1 className="text-2xl font-bold text-foreground">
+        <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex-1 min-w-0">
+              <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground truncate">
                 {settings?.restaurant_name || 'ร้านอาหาร'}
               </h1>
               {mode === 'restaurant' && tableNumber && (
-                <p className="text-sm text-muted-foreground">โต๊ะ {tableNumber}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">โต๊ะ {tableNumber}</p>
               )}
               {mode === 'market' && (
-                <p className="text-sm text-muted-foreground">ตลาดนัด - สั่งและรับคิว</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">ตลาดนัด - สั่งและรับคิว</p>
               )}
             </div>
             {settings?.logo_url && (
-              <div className="w-12 h-12 relative shrink-0">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 relative shrink-0 ml-2">
                 <Image
                   src={settings.logo_url}
                   alt="Logo"
@@ -158,28 +158,28 @@ function MenuContent() {
 
           {/* Search */}
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground pointer-events-none" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground pointer-events-none" />
             <Input
               type="search"
               placeholder="ค้นหาเมนู..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 h-12"
+              className="pl-9 sm:pl-10 h-10 sm:h-12 text-sm sm:text-base"
             />
           </div>
         </div>
       </header>
 
       {/* Categories */}
-      <div className="sticky top-[144px] z-30 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
-        <div className="container mx-auto px-4 py-3">
+      <div className="sticky top-[120px] sm:top-[136px] z-30 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
+        <div className="container mx-auto px-3 sm:px-4 py-2 sm:py-3">
           <Tabs value={selectedCategory} onValueChange={setSelectedCategory} className="w-full">
-            <TabsList className="inline-flex h-auto p-1 gap-2 bg-muted/50 w-full overflow-x-auto scrollbar-hide justify-start">
-              <TabsTrigger value="all" className="shrink-0 px-4 py-2">
+            <TabsList className="inline-flex h-auto p-1 gap-1 sm:gap-2 bg-muted/50 w-full overflow-x-auto scrollbar-hide justify-start">
+              <TabsTrigger value="all" className="shrink-0 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm whitespace-nowrap">
                 ทั้งหมด
               </TabsTrigger>
               {categories.map((category) => (
-                <TabsTrigger key={category.id} value={category.id} className="shrink-0 px-4 py-2">
+                <TabsTrigger key={category.id} value={category.id} className="shrink-0 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm whitespace-nowrap">
                   {category.name}
                 </TabsTrigger>
               ))}
@@ -189,40 +189,41 @@ function MenuContent() {
       </div>
 
       {/* Menu Grid */}
-      <main className="container mx-auto px-4 py-6 pb-32">
+      <main className="container mx-auto px-3 sm:px-4 py-4 sm:py-6 pb-24 sm:pb-32">
         {filteredItems.length === 0 ? (
-          <div className="text-center py-16">
-            <p className="text-muted-foreground text-lg">ไม่พบเมนูที่ค้นหา</p>
+          <div className="text-center py-12 sm:py-16">
+            <p className="text-muted-foreground text-base sm:text-lg">ไม่พบเมนูที่ค้นหา</p>
             {searchQuery && (
               <Button
                 variant="outline"
                 onClick={() => setSearchQuery('')}
                 className="mt-4"
+                size="sm"
               >
                 ล้างการค้นหา
               </Button>
             )}
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
             {filteredItems.map((item) => {
               const promo = getItemPromotion(item);
 
               return (
                 <div
                   key={item.id}
-                  className="card hover:border-primary transition-all duration-200 cursor-pointer group"
+                  className="card hover:border-primary transition-all duration-200 cursor-pointer group p-3 sm:p-4"
                   onClick={() => handleMenuItemClick(item)}
                 >
                   {/* Image */}
-                  <div className="relative aspect-[4/3] mb-3 rounded-lg overflow-hidden bg-muted">
+                  <div className="relative aspect-[4/3] mb-2 sm:mb-3 rounded-lg overflow-hidden bg-muted">
                     {item.image_url ? (
                       <Image
                         src={item.image_url}
                         alt={item.name}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-300"
-                        sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                        sizes="(max-width: 640px) 50vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-muted-foreground">
@@ -232,17 +233,17 @@ function MenuContent() {
 
                     {/* Promotion Badge */}
                     {promo && (
-                      <Badge className="absolute top-2 right-2 bg-destructive text-destructive-foreground font-bold shadow-lg">
+                      <Badge className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 bg-destructive text-destructive-foreground font-bold shadow-lg text-xs px-1.5 py-0.5">
                         ลด {promo.label}
                       </Badge>
                     )}
                   </div>
 
                 {/* Info */}
-                <div className="space-y-2">
-                  <h3 className="font-semibold text-base line-clamp-1">{item.name}</h3>
+                <div className="space-y-1 sm:space-y-2">
+                  <h3 className="font-semibold text-sm sm:text-base line-clamp-1">{item.name}</h3>
                   {item.description && (
-                    <p className="text-sm text-muted-foreground line-clamp-2">
+                    <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2 hidden sm:block">
                       {item.description}
                     </p>
                   )}
@@ -250,22 +251,22 @@ function MenuContent() {
                     <div className="flex flex-col">
                       {promo ? (
                         <>
-                          <span className="text-xs line-through text-muted-foreground">
+                          <span className="text-[10px] sm:text-xs line-through text-muted-foreground">
                             ฿{item.price}
                           </span>
-                          <span className="text-lg font-bold text-destructive">
+                          <span className="text-base sm:text-lg font-bold text-destructive">
                             ฿{Math.round(item.price * (1 - promo.discount / 100))}
                           </span>
                         </>
                       ) : (
-                        <span className="text-lg font-bold text-primary">
+                        <span className="text-base sm:text-lg font-bold text-primary">
                           ฿{item.price}
                         </span>
                       )}
                     </div>
                     <Button
                       size="sm"
-                      className="h-8 w-8 p-0 rounded-full"
+                      className="h-7 w-7 sm:h-8 sm:w-8 p-0 rounded-full text-base sm:text-lg"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleAddToCart(item);
@@ -284,15 +285,15 @@ function MenuContent() {
 
       {/* Floating Cart Button */}
       {cartItemCount > 0 && (
-        <div className="fixed bottom-6 right-6 z-50">
+        <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
           <Button
             size="lg"
-            className="rounded-full w-16 h-16 shadow-xl hover:scale-110 transition-transform relative"
+            className="rounded-full w-14 h-14 sm:w-16 sm:h-16 shadow-xl hover:scale-110 transition-transform relative"
             onClick={() => setIsCartOpen(true)}
           >
-            <ShoppingCart className="w-6 h-6" />
+            <ShoppingCart className="w-5 h-5 sm:w-6 sm:h-6" />
             <Badge
-              className="absolute -top-2 -right-2 w-7 h-7 rounded-full p-0 flex items-center justify-center bg-destructive text-destructive-foreground animate-pulse"
+              className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 w-6 h-6 sm:w-7 sm:h-7 rounded-full p-0 flex items-center justify-center bg-destructive text-destructive-foreground animate-pulse text-xs sm:text-sm font-bold"
             >
               {cartItemCount}
             </Badge>
@@ -302,7 +303,7 @@ function MenuContent() {
 
       {/* Hidden Admin Button */}
       <button
-        className="fixed bottom-6 left-6 w-12 h-12 opacity-10 hover:opacity-30 transition-opacity z-40"
+        className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 w-10 h-10 sm:w-12 sm:h-12 opacity-10 hover:opacity-30 transition-opacity z-40"
         onMouseDown={(e) => {
           const timer = setTimeout(() => {
             window.location.href = '/admin/login';

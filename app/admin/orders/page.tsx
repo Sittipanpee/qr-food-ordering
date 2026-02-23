@@ -214,14 +214,14 @@ export default function OrdersPage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
           {/* Notification Toggle */}
-          <div className="flex items-center gap-2 px-3 py-2 border rounded-lg bg-background">
-            <span className="text-2xl">{notificationsEnabled ? '🔔' : '🔕'}</span>
-            <div className="flex flex-col">
-              <span className="text-sm font-medium">เสียงแจ้งเตือน</span>
-              <span className="text-xs text-muted-foreground">
-                {notificationsEnabled ? 'เปิดอยู่' : 'ปิดอยู่'}
+          <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 border rounded-lg bg-background">
+            <span className="text-lg sm:text-2xl">{notificationsEnabled ? '🔔' : '🔕'}</span>
+            <div className="flex flex-col min-w-0">
+              <span className="text-xs sm:text-sm font-medium truncate">เสียงแจ้งเตือน</span>
+              <span className="text-[10px] sm:text-xs text-muted-foreground">
+                {notificationsEnabled ? 'เปิด' : 'ปิด'}
               </span>
             </div>
             <Switch
@@ -237,23 +237,23 @@ export default function OrdersPage() {
             />
           </div>
 
-          <Button variant="outline" onClick={loadData} size="lg" className="h-12">
-            🔄 รีเฟรช
+          <Button variant="outline" onClick={loadData} size="sm" className="h-10 sm:h-12 text-sm sm:text-base">
+            🔄 <span className="hidden sm:inline ml-1">รีเฟรช</span>
           </Button>
         </div>
       </div>
 
       {/* Statistics */}
-      <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 sm:gap-3 md:gap-4 mb-4 sm:mb-6">
         <Card className={`transition-all ${statusCardColors.pending} ${statusCounts.pending > 0 ? statusAnimations.pending : ''}`}>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-warning flex items-center gap-2">
-              <span className="text-xl">{statusIcons.pending}</span>
-              รอยืนยัน
+          <CardHeader className="pb-1 sm:pb-2 pt-3 sm:pt-4">
+            <CardTitle className="text-xs sm:text-sm font-medium text-warning flex items-center gap-1 sm:gap-2">
+              <span className="text-base sm:text-xl">{statusIcons.pending}</span>
+              <span className="truncate">รอยืนยัน</span>
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-warning">{statusCounts.pending}</div>
+          <CardContent className="pb-3 sm:pb-4">
+            <div className="text-2xl sm:text-3xl font-bold text-warning">{statusCounts.pending}</div>
           </CardContent>
         </Card>
 

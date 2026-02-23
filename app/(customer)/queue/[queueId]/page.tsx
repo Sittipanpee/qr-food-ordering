@@ -206,68 +206,71 @@ export default function QueueTicketPage({ params }: PageProps) {
   const isReady = order.status === 'ready';
 
   return (
-    <div className="min-h-screen bg-background p-4">
-      <div className="container max-w-2xl mx-auto py-8">
+    <div className="min-h-screen bg-background p-3 sm:p-4">
+      <div className="container max-w-2xl mx-auto py-4 sm:py-8">
         {/* Queue Ticket Card */}
-        <Card className={`p-8 border-2 ${statusInfo.cardBg} transition-all`}>
+        <Card className={`p-4 sm:p-6 md:p-8 border-2 ${statusInfo.cardBg} transition-all`}>
           {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-lg text-muted-foreground mb-2">หมายเลขคิวของคุณ</h1>
-            <div className="queue-number-large text-primary mb-2">
+          <div className="text-center mb-6 sm:mb-8">
+            <h1 className="text-sm sm:text-base md:text-lg text-muted-foreground mb-2">หมายเลขคิวของคุณ</h1>
+            <div className="text-5xl sm:text-6xl md:text-7xl font-bold text-primary mb-2 sm:mb-3">
               Q {String(order.queue_number).padStart(3, '0')}
             </div>
-            <Badge className={`${statusInfo.color} text-base px-4 py-1 ${statusInfo.animation}`}>
-              {StatusIcon && <StatusIcon className={`w-4 h-4 mr-1 inline ${order.status === 'preparing' ? 'animate-spin-slow' : ''}`} />}
+            <Badge className={`${statusInfo.color} text-sm sm:text-base px-3 sm:px-4 py-1 ${statusInfo.animation}`}>
+              {StatusIcon && <StatusIcon className={`w-3 h-3 sm:w-4 sm:h-4 mr-1 inline ${order.status === 'preparing' ? 'animate-spin-slow' : ''}`} />}
               {statusInfo.label}
             </Badge>
           </div>
 
           {/* Action Buttons */}
-          <div className="grid grid-cols-2 gap-4 mb-8">
+          <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 mb-6 sm:mb-8">
             <Button
               size="lg"
               variant="outline"
-              className="h-14"
+              className="h-12 sm:h-14 text-xs sm:text-sm"
               onClick={handleCopyLink}
             >
               {copySuccess ? (
                 <>
-                  <Check className="w-5 h-5 mr-2" />
-                  คัดลอกแล้ว!
+                  <Check className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" />
+                  <span className="hidden sm:inline">คัดลอกแล้ว!</span>
+                  <span className="sm:hidden">คัดลอก!</span>
                 </>
               ) : (
                 <>
-                  <Copy className="w-5 h-5 mr-2" />
-                  Copy Link
+                  <Copy className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" />
+                  <span className="hidden sm:inline">Copy Link</span>
+                  <span className="sm:hidden">Copy</span>
                 </>
               )}
             </Button>
             <Button
               size="lg"
               variant="outline"
-              className="h-14"
+              className="h-12 sm:h-14 text-xs sm:text-sm"
               onClick={handleDownloadQR}
             >
-              <Download className="w-5 h-5 mr-2" />
-              Save QR
+              <Download className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Save QR</span>
+              <span className="sm:hidden">Save</span>
             </Button>
           </div>
 
           {/* Queue Info */}
           {!isReady && order.status !== 'completed' && (
-            <div className="space-y-4 mb-8 p-4 bg-muted/30 rounded-lg">
-              <div className="flex items-center gap-3">
-                <Clock className="w-5 h-5 text-muted-foreground" />
-                <div>
-                  <p className="text-sm text-muted-foreground">เวลารอโดยประมาณ</p>
-                  <p className="font-semibold">~{estimatedWait} นาที</p>
+            <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8 p-3 sm:p-4 bg-muted/30 rounded-lg">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground shrink-0" />
+                <div className="min-w-0">
+                  <p className="text-xs sm:text-sm text-muted-foreground">เวลารอโดยประมาณ</p>
+                  <p className="font-semibold text-sm sm:text-base">~{estimatedWait} นาที</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <Users className="w-5 h-5 text-muted-foreground" />
-                <div>
-                  <p className="text-sm text-muted-foreground">คิวที่รออยู่ข้างหน้า</p>
-                  <p className="font-semibold">{queuesAhead} คิว</p>
+              <div className="flex items-center gap-2 sm:gap-3">
+                <Users className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground shrink-0" />
+                <div className="min-w-0">
+                  <p className="text-xs sm:text-sm text-muted-foreground">คิวที่รออยู่ข้างหน้า</p>
+                  <p className="font-semibold text-sm sm:text-base">{queuesAhead} คิว</p>
                 </div>
               </div>
             </div>
@@ -275,28 +278,28 @@ export default function QueueTicketPage({ params }: PageProps) {
 
           {/* Ready Message */}
           {isReady && (
-            <div className="bg-success/10 border-2 border-success rounded-lg p-6 mb-8 text-center animate-bounce">
-              <p className="text-2xl font-bold text-success mb-2">🎉 อาหารพร้อมแล้ว!</p>
-              <p className="text-success font-semibold">กรุณามารับอาหารที่เคาน์เตอร์</p>
+            <div className="bg-success/10 border-2 border-success rounded-lg p-4 sm:p-6 mb-6 sm:mb-8 text-center animate-bounce">
+              <p className="text-xl sm:text-2xl font-bold text-success mb-1 sm:mb-2">🎉 อาหารพร้อมแล้ว!</p>
+              <p className="text-success font-semibold text-sm sm:text-base">กรุณามารับอาหารที่เคาน์เตอร์</p>
             </div>
           )}
 
           {/* QR Code */}
-          <div className="bg-white p-6 rounded-lg flex justify-center">
+          <div className="bg-white p-4 sm:p-6 rounded-lg flex justify-center">
             <QRCode
               id="qr-code"
               value={ticketUrl}
-              size={200}
+              size={window.innerWidth < 640 ? 180 : 200}
               level="H"
             />
           </div>
 
           {/* Order Summary */}
-          <div className="mt-8 pt-6 border-t">
-            <h3 className="font-semibold mb-4">รายการอาหาร</h3>
+          <div className="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t">
+            <h3 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base">รายการอาหาร</h3>
             <div className="space-y-2">
               {order.items.map((item) => (
-                <div key={item.id} className="flex justify-between text-sm">
+                <div key={item.id} className="flex justify-between text-xs sm:text-sm gap-2">
                   <span>
                     {item.menu_item_name} x{item.quantity}
                   </span>
