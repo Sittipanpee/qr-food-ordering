@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS settings (
   enable_table_ordering BOOLEAN DEFAULT true,
   auto_print_orders BOOLEAN DEFAULT false,
   queue_counter INT DEFAULT 0,
+  estimated_wait_per_queue INT DEFAULT 5,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
