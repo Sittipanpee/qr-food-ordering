@@ -13,6 +13,7 @@ import {
   downloadQRCode,
   downloadQRCodePDF,
 } from '@/lib/utils/qr-generator';
+import { testNotification } from '@/lib/utils/notifications';
 import Link from 'next/link';
 
 export default function SettingsPage() {
@@ -273,6 +274,66 @@ export default function SettingsPage() {
                 >
                   {saving ? 'กำลังบันทึก...' : '💾 บันทึกการตั้งค่า'}
                 </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Notification Settings */}
+          <Card className="mt-6">
+            <CardHeader>
+              <CardTitle className="text-xl">🔔 การแจ้งเตือน</CardTitle>
+              <CardDescription className="text-base">
+                ตั้งค่าการแจ้งเตือนสำหรับออเดอร์ใหม่และการอัพเดทสถานะ
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="p-4 bg-muted/50 rounded-lg space-y-3">
+                <h4 className="font-semibold">💡 คุณสมบัติการแจ้งเตือน</h4>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-start gap-2">
+                    <span className="text-success">✅</span>
+                    <span>
+                      <strong>แจ้งเตือนออเดอร์ใหม่:</strong> เล่นเสียงเมื่อมีออเดอร์เข้ามาใหม่ในหน้า Orders
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-success">✅</span>
+                    <span>
+                      <strong>แจ้งเตือนลูกค้า:</strong> ส่งการแจ้งเตือนไปยังมือถือลูกค้าเมื่อออเดอร์พร้อม
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-success">✅</span>
+                    <span>
+                      <strong>เปิด/ปิดได้:</strong> สามารถเปิด-ปิดเสียงแจ้งเตือนได้ในหน้า Orders
+                    </span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-semibold mb-2">ทดสอบการแจ้งเตือน</h4>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    คลิกปุ่มด้านล่างเพื่อทดสอบเสียงและการแจ้งเตือน
+                  </p>
+                  <Button
+                    onClick={testNotification}
+                    variant="outline"
+                    size="lg"
+                    className="h-12"
+                  >
+                    <span className="mr-2">🔔</span>
+                    ทดสอบเสียงและการแจ้งเตือน
+                  </Button>
+                </div>
+
+                <div className="p-4 bg-info/10 border border-info/20 rounded-lg">
+                  <p className="text-sm">
+                    <strong>หมายเหตุ:</strong> ลูกค้าจะต้องอนุญาตการแจ้งเตือนในเบราว์เซอร์ของตนเอง
+                    ระบบจะแสดงข้อความขออนุญาตโดยอัตโนมัติเมื่อลูกค้าเข้าหน้าติดตามออเดอร์
+                  </p>
+                </div>
               </div>
             </CardContent>
           </Card>

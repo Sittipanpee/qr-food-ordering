@@ -16,6 +16,12 @@ import { api } from '@/lib/mock-api';
 import { Order, OrderStatus, Settings } from '@/lib/types';
 import { format } from 'date-fns';
 import { PrintControls } from '@/components/admin/print-controls';
+import {
+  playNotificationSound,
+  requestNotificationPermission,
+  notifyNewOrder,
+} from '@/lib/utils/notifications';
+import { Switch } from '@/components/ui/switch';
 
 const statusLabels: Record<OrderStatus, string> = {
   pending: 'รอยืนยัน',
@@ -70,6 +76,11 @@ export default function OrdersPage() {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
 
+  // Notification states
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const [previousOrderIds, setPreviousOrderIds] = useState<Set<string>>(new Set());
+  const [newOrdersCount, setNewOrdersCount] = useState(0);
+
   useEffect(() => {
     loadData();
 
@@ -89,6 +100,32 @@ export default function OrdersPage() {
       const sorted = ordersData.sort(
         (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
       );
+
+      // Check for new orders
+      if (!loading && notificationsEnabled && previousOrderIds.size > 0) {
+        const currentOrderIds = new Set(sorted.map(o => o.id));
+        const newOrders = sorted.filter(order => !previousOrderIds.has(order.id));
+
+        // Notify about new orders
+        if (newOrders.length > 0) {
+          // Play sound
+          playNotificationSound();
+
+          // Send browser notification for each new order
+          newOrders.forEach(order => {
+            notifyNewOrder(order.order_number);
+          });
+
+          // Update new orders count
+          setNewOrdersCount(prev => prev + newOrders.length);
+
+          // Reset count after 5 seconds
+          setTimeout(() => setNewOrdersCount(0), 5000);
+        }
+      }
+
+      // Update previous order IDs
+      setPreviousOrderIds(new Set(sorted.map(o => o.id)));
 
       setOrders(sorted);
       setSettings(settingsData);
@@ -162,17 +199,48 @@ export default function OrdersPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
         <div>
-          <h1 className="text-3xl font-bold">📋 จัดการออเดอร์</h1>
+          <h1 className="text-3xl font-bold flex items-center gap-2">
+            📋 จัดการออเดอร์
+            {newOrdersCount > 0 && (
+              <Badge className="bg-success text-success-foreground animate-pulse">
+                +{newOrdersCount} ใหม่!
+              </Badge>
+            )}
+          </h1>
           <p className="text-muted-foreground mt-1">
             {isRestaurantMode ? 'ออเดอร์ร้านอาหาร' : 'ออเดอร์ตลาดนัด'}
           </p>
         </div>
 
-        <Button variant="outline" onClick={loadData} size="lg" className="h-12">
-          🔄 รีเฟรช
-        </Button>
+        <div className="flex items-center gap-3">
+          {/* Notification Toggle */}
+          <div className="flex items-center gap-2 px-3 py-2 border rounded-lg bg-background">
+            <span className="text-2xl">{notificationsEnabled ? '🔔' : '🔕'}</span>
+            <div className="flex flex-col">
+              <span className="text-sm font-medium">เสียงแจ้งเตือน</span>
+              <span className="text-xs text-muted-foreground">
+                {notificationsEnabled ? 'เปิดอยู่' : 'ปิดอยู่'}
+              </span>
+            </div>
+            <Switch
+              checked={notificationsEnabled}
+              onCheckedChange={async (checked) => {
+                setNotificationsEnabled(checked);
+                if (checked) {
+                  // Request notification permission when enabling
+                  await requestNotificationPermission();
+                  playNotificationSound(); // Test sound
+                }
+              }}
+            />
+          </div>
+
+          <Button variant="outline" onClick={loadData} size="lg" className="h-12">
+            🔄 รีเฟรช
+          </Button>
+        </div>
       </div>
 
       {/* Statistics */}
