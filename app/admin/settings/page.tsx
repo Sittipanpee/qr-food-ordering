@@ -8,6 +8,12 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { api } from '@/lib/mock-api';
 import { Settings, OperationMode } from '@/lib/types';
+import {
+  generateQRCode,
+  downloadQRCode,
+  downloadQRCodePDF,
+} from '@/lib/utils/qr-generator';
+import Link from 'next/link';
 
 export default function SettingsPage() {
   const [settings, setSettings] = useState<Settings | null>(null);
@@ -25,9 +31,25 @@ export default function SettingsPage() {
   const [operationMode, setOperationMode] = useState<OperationMode>('restaurant');
   const [estimatedWaitPerQueue, setEstimatedWaitPerQueue] = useState(5);
 
+  // QR Code states
+  const [marketQR, setMarketQR] = useState<string>('');
+  const [generatingQR, setGeneratingQR] = useState(false);
+
   useEffect(() => {
     loadSettings();
+    generateMarketQR();
   }, []);
+
+  const generateMarketQR = async () => {
+    try {
+      const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+      const marketUrl = `${baseUrl}/menu?mode=market`;
+      const qrDataUrl = await generateQRCode(marketUrl, { width: 400 });
+      setMarketQR(qrDataUrl);
+    } catch (error) {
+      console.error('Error generating market QR code:', error);
+    }
+  };
 
   const loadSettings = async () => {
     try {
@@ -86,6 +108,29 @@ export default function SettingsPage() {
     setOperationMode(newMode);
   };
 
+  const handleDownloadMarketQR = async (format: 'png' | 'pdf') => {
+    if (!marketQR) return;
+
+    setGeneratingQR(true);
+    try {
+      const filename = `Market-Mode-QR-${restaurantName.replace(/\s+/g, '-')}`;
+
+      if (format === 'png') {
+        downloadQRCode(marketQR, filename);
+      } else if (format === 'pdf') {
+        await downloadQRCodePDF(marketQR, filename, {
+          title: `${restaurantName} - Market Mode`,
+          subtitle: 'Scan to order (Market Mode)',
+        });
+      }
+    } catch (error) {
+      console.error('Error downloading QR code:', error);
+      alert('ไม่สามารถดาวน์โหลด QR Code ได้');
+    } finally {
+      setGeneratingQR(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-full">
@@ -108,6 +153,7 @@ export default function SettingsPage() {
           <TabsTrigger value="general" className="text-base">ทั่วไป</TabsTrigger>
           <TabsTrigger value="mode" className="text-base">โหมดการทำงาน</TabsTrigger>
           <TabsTrigger value="pricing" className="text-base">ราคา</TabsTrigger>
+          <TabsTrigger value="qrcodes" className="text-base">QR Codes</TabsTrigger>
         </TabsList>
 
         {/* General Settings */}
@@ -411,6 +457,100 @@ export default function SettingsPage() {
               </div>
             </CardContent>
           </Card>
+        </TabsContent>
+
+        {/* QR Codes Tab */}
+        <TabsContent value="qrcodes">
+          <div className="space-y-6">
+            {/* Market Mode QR Code */}
+            <Card>
+              <CardHeader>
+                <CardTitle>🏪 Market Mode QR Code</CardTitle>
+                <CardDescription>
+                  QR Code สำหรับลูกค้าสแกนเข้าร้านโหมดตลาดนัด (Market Mode)
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {/* QR Code Display */}
+                <div className="flex flex-col items-center p-6 bg-muted rounded-lg">
+                  {marketQR ? (
+                    <>
+                      <div className="bg-white p-4 rounded-lg shadow-md">
+                        <img
+                          src={marketQR}
+                          alt="Market Mode QR Code"
+                          className="w-64 h-64"
+                        />
+                      </div>
+                      <p className="text-sm text-muted-foreground mt-4 text-center">
+                        {typeof window !== 'undefined' && `${window.location.origin}/menu?mode=market`}
+                      </p>
+                    </>
+                  ) : (
+                    <p className="text-muted-foreground">กำลังสร้าง QR Code...</p>
+                  )}
+                </div>
+
+                {/* Download Buttons */}
+                <div className="flex gap-3 justify-center flex-wrap">
+                  <Button
+                    onClick={() => handleDownloadMarketQR('png')}
+                    disabled={!marketQR || generatingQR}
+                    size="lg"
+                  >
+                    <span className="mr-2">📥</span>
+                    ดาวน์โหลด PNG
+                  </Button>
+                  <Button
+                    onClick={() => handleDownloadMarketQR('pdf')}
+                    disabled={!marketQR || generatingQR}
+                    variant="outline"
+                    size="lg"
+                  >
+                    <span className="mr-2">📄</span>
+                    {generatingQR ? 'กำลังสร้าง...' : 'ดาวน์โหลด PDF'}
+                  </Button>
+                </div>
+
+                {/* Info Box */}
+                <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                  <h4 className="font-semibold mb-2">💡 วิธีใช้งาน</h4>
+                  <ul className="text-sm space-y-1 list-disc list-inside text-muted-foreground">
+                    <li>ดาวน์โหลด QR Code ในรูปแบบ PNG หรือ PDF</li>
+                    <li>นำไปพิมพ์และติดไว้บริเวณหน้าร้าน</li>
+                    <li>ลูกค้าสแกนเพื่อเข้าสู่เมนูโหมดตลาดนัด</li>
+                    <li>ลูกค้าสามารถสั่งอาหารและรับคิวได้ทันที</li>
+                  </ul>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Table QR Codes Link */}
+            <Card>
+              <CardHeader>
+                <CardTitle>🍽️ Table QR Codes</CardTitle>
+                <CardDescription>
+                  จัดการ QR Code สำหรับแต่ละโต๊ะในโหมดร้านอาหาร (Restaurant Mode)
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center justify-between p-4 bg-muted rounded-lg">
+                  <div>
+                    <p className="font-medium">จัดการ QR Code ของโต๊ะ</p>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      สร้าง, แก้ไข, และดาวน์โหลด QR Code สำหรับแต่ละโต๊ะ
+                    </p>
+                  </div>
+                  <Link href="/admin/tables">
+                    <Button variant="outline" size="lg">
+                      <span className="mr-2">📋</span>
+                      ไปที่ Tables Management
+                    </Button>
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </TabsContent>
       </Tabs>
 

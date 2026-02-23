@@ -15,6 +15,7 @@ import {
 import { api } from '@/lib/mock-api';
 import { Order, OrderStatus, Settings } from '@/lib/types';
 import { format } from 'date-fns';
+import { PrintControls } from '@/components/admin/print-controls';
 
 const statusLabels: Record<OrderStatus, string> = {
   pending: 'รอยืนยัน',
@@ -474,6 +475,12 @@ export default function OrdersPage() {
                   </div>
                 </div>
               )}
+
+              {/* Print Controls */}
+              <div className="border-t pt-4">
+                <p className="text-sm font-medium mb-3">พิมพ์ใบเสร็จ / Print Receipt</p>
+                <PrintControls order={selectedOrder} settings={settings} />
+              </div>
 
               {/* Status Actions */}
               <div className="flex gap-2 pt-4">
