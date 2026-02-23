@@ -1,0 +1,118 @@
+import { Category } from '../types';
+
+// Main + Subcategories from product-designer
+export const mockCategories: Category[] = [
+  // Main Categories
+  {
+    id: 'cat-001',
+    name: 'อาหารคาว',
+    description: 'อาหารคาวหลากหลายชนิด',
+    display_order: 1,
+    is_active: true,
+    created_at: '2026-01-01T00:00:00Z',
+    updated_at: '2026-02-23T00:00:00Z',
+  },
+  {
+    id: 'cat-002',
+    name: 'ของทานเล่น',
+    description: 'ของทานเล่นและไอศครีม',
+    display_order: 2,
+    is_active: true,
+    created_at: '2026-01-01T00:00:00Z',
+    updated_at: '2026-02-23T00:00:00Z',
+  },
+  {
+    id: 'cat-003',
+    name: 'เครื่องดื่ม',
+    description: 'เครื่องดื่มต่างๆ',
+    display_order: 3,
+    is_active: true,
+    created_at: '2026-01-01T00:00:00Z',
+    updated_at: '2026-02-23T00:00:00Z',
+  },
+  {
+    id: 'cat-004',
+    name: 'ของหวาน',
+    description: 'ของหวานและขนมไทย',
+    display_order: 4,
+    is_active: true,
+    created_at: '2026-01-01T00:00:00Z',
+    updated_at: '2026-02-23T00:00:00Z',
+  },
+
+  // Subcategories - อาหารคาว
+  {
+    id: 'cat-101',
+    name: 'ข้าวราด',
+    description: 'ข้าวราดกะเพรา หมูกรอบ ไก่',
+    display_order: 1,
+    is_active: true,
+    created_at: '2026-01-01T00:00:00Z',
+    updated_at: '2026-02-23T00:00:00Z',
+  },
+  {
+    id: 'cat-102',
+    name: 'ก๋วยเตี๋ยว',
+    description: 'ก๋วยเตี๋ยวต้มยำ เนื้อตุ๋น เรือ',
+    display_order: 2,
+    is_active: true,
+    created_at: '2026-01-01T00:00:00Z',
+    updated_at: '2026-02-23T00:00:00Z',
+  },
+  {
+    id: 'cat-103',
+    name: 'อาหารผัด',
+    description: 'ผัดกะเพรา ผัดขี่มา ผัดไทย',
+    display_order: 3,
+    is_active: true,
+    created_at: '2026-01-01T00:00:00Z',
+    updated_at: '2026-02-23T00:00:00Z',
+  },
+  {
+    id: 'cat-104',
+    name: 'อาหารต้ม',
+    description: 'ต้มแซบ ต้มยำกุ้ง แกงเหลือง',
+    display_order: 4,
+    is_active: true,
+    created_at: '2026-01-01T00:00:00Z',
+    updated_at: '2026-02-23T00:00:00Z',
+  },
+  {
+    id: 'cat-105',
+    name: 'อาหารทอด',
+    description: 'ไก่ทอด ปลาทอด กระเทียมทอด',
+    display_order: 5,
+    is_active: true,
+    created_at: '2026-01-01T00:00:00Z',
+    updated_at: '2026-02-23T00:00:00Z',
+  },
+
+  // Subcategories - เครื่องดื่ม
+  {
+    id: 'cat-301',
+    name: 'น้ำปั่น',
+    description: 'น้ำปั่นผลไม้ น้ำแตงโม',
+    display_order: 1,
+    is_active: true,
+    created_at: '2026-01-01T00:00:00Z',
+    updated_at: '2026-02-23T00:00:00Z',
+  },
+  {
+    id: 'cat-302',
+    name: 'กาแฟ',
+    description: 'กาแฟร้อน กาแฟเย็น',
+    display_order: 2,
+    is_active: true,
+    created_at: '2026-01-01T00:00:00Z',
+    updated_at: '2026-02-23T00:00:00Z',
+  },
+  {
+    id: 'cat-303',
+    name: 'ชา',
+    description: 'ชาไทย ชานม ชาเย็น',
+    display_order: 3,
+    is_active: true,
+    created_at: '2026-01-01T00:00:00Z',
+    updated_at: '2026-02-23T00:00:00Z',
+  },
+];
