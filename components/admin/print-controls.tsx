@@ -18,7 +18,7 @@ export function PrintControls({ order, settings }: PrintControlsProps) {
 
   // Browser print handler
   const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
+    contentRef: componentRef,
     documentTitle: `Receipt-${order.order_number}`,
   });
 
