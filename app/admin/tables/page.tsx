@@ -252,7 +252,7 @@ export default function TablesPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold">Table Management</h1>
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold">Table Management</h1>
           <p className="text-muted-foreground mt-1">
             Manage tables and generate QR codes for ordering
           </p>

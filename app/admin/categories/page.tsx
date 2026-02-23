@@ -148,7 +148,7 @@ export default function CategoriesPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold">Categories</h1>
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold">Categories</h1>
           <p className="text-muted-foreground mt-1">
             Organize your menu items into categories
           </p>

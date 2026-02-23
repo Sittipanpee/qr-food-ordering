@@ -213,7 +213,7 @@ export default function PromotionsPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold">Promotions</h1>
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold">Promotions</h1>
           <p className="text-muted-foreground mt-1">
             Create and manage promotional discounts
           </p>

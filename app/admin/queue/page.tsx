@@ -183,7 +183,7 @@ export default function QueueManagementPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold">Queue Management</h1>
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold">Queue Management</h1>
           <p className="text-muted-foreground mt-1">
             Manage order queue for market mode
           </p>

@@ -143,7 +143,7 @@ export default function SettingsPage() {
   return (
     <div className="max-w-4xl">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold">⚙️ ตั้งค่าระบบ</h1>
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold">⚙️ ตั้งค่าระบบ</h1>
         <p className="text-muted-foreground mt-1">
           จัดการการตั้งค่าร้านอาหารและระบบ
         </p>
