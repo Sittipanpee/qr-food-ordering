@@ -293,19 +293,25 @@ export default function SettingsPage() {
                   <li className="flex items-start gap-2">
                     <span className="text-success">✅</span>
                     <span>
-                      <strong>แจ้งเตือนออเดอร์ใหม่:</strong> เล่นเสียงเมื่อมีออเดอร์เข้ามาใหม่ในหน้า Orders
+                      <strong>เสียงแจ้งเตือนออเดอร์ใหม่:</strong> เล่นเสียง "ding" เมื่อมีออเดอร์เข้ามาใหม่
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-success">✅</span>
                     <span>
-                      <strong>แจ้งเตือนลูกค้า:</strong> ส่งการแจ้งเตือนไปยังมือถือลูกค้าเมื่อออเดอร์พร้อม
+                      <strong>Browser Notification:</strong> แสดง popup แจ้งเตือนบน desktop
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-success">✅</span>
                     <span>
                       <strong>เปิด/ปิดได้:</strong> สามารถเปิด-ปิดเสียงแจ้งเตือนได้ในหน้า Orders
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-success">✅</span>
+                    <span>
+                      <strong>Auto-refresh:</strong> อัพเดทรายการออเดอร์อัตโนมัติทุก 10 วินาที
                     </span>
                   </li>
                 </ul>
@@ -330,8 +336,8 @@ export default function SettingsPage() {
 
                 <div className="p-4 bg-info/10 border border-info/20 rounded-lg">
                   <p className="text-sm">
-                    <strong>หมายเหตุ:</strong> ลูกค้าจะต้องอนุญาตการแจ้งเตือนในเบราว์เซอร์ของตนเอง
-                    ระบบจะแสดงข้อความขออนุญาตโดยอัตโนมัติเมื่อลูกค้าเข้าหน้าติดตามออเดอร์
+                    <strong>หมายเหตุ:</strong> Browser อาจขออนุญาตการแจ้งเตือนครั้งแรก
+                    กรุณากด "Allow" เพื่อเปิดใช้งานการแจ้งเตือนแบบ popup
                   </p>
                 </div>
               </div>
