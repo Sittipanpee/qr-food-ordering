@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { api } from '@/lib/mock-api';
+import { api } from '@/lib/api';
 import { Settings } from '@/lib/types';
 import { useAuth } from '@/lib/hooks/use-auth';
 

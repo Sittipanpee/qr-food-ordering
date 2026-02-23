@@ -12,7 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { api } from '@/lib/mock-api';
+import { api } from '@/lib/api';
 import { Order, OrderStatus, Settings } from '@/lib/types';
 import { format } from 'date-fns';
 import { PrintControls } from '@/components/admin/print-controls';

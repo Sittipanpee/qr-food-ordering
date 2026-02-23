@@ -15,7 +15,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { api } from '@/lib/mock-api';
+import { api } from '@/lib/api';
 import { Promotion } from '@/lib/types';
 import { format } from 'date-fns';
 

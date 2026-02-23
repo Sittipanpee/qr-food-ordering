@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { api } from '@/lib/mock-api';
+import { api } from '@/lib/api';
 import { Order, Settings } from '@/lib/types';
 import { format } from 'date-fns';
 

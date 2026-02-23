@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
-import { api } from '@/lib/mock-api';
+import { api } from '@/lib/api';
 import { Category, MenuItem, Settings } from '@/lib/types';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
