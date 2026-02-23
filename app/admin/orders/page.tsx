@@ -545,10 +545,12 @@ export default function OrdersPage() {
               )}
 
               {/* Print Controls */}
-              <div className="border-t pt-4">
-                <p className="text-sm font-medium mb-3">พิมพ์ใบเสร็จ / Print Receipt</p>
-                <PrintControls order={selectedOrder} settings={settings} />
-              </div>
+              {settings && (
+                <div className="border-t pt-4">
+                  <p className="text-sm font-medium mb-3">พิมพ์ใบเสร็จ / Print Receipt</p>
+                  <PrintControls order={selectedOrder} settings={settings} />
+                </div>
+              )}
 
               {/* Status Actions */}
               <div className="flex gap-2 pt-4">
